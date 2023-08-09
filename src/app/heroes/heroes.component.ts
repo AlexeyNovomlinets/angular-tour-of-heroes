@@ -1,4 +1,4 @@
-import { Component, WritableSignal, signal } from '@angular/core';
+import { Component, WritableSignal, inject, signal } from '@angular/core';
 import { Hero } from './heroes.model';
 import { HeroesService } from 'src/app/heroes/heroes.service';
 import { MessagesService } from 'src/app/messages/messages.service';
@@ -12,13 +12,11 @@ export class HeroesComponent {
 	public heroes: WritableSignal<Hero[]> = signal([]);
 	public selectedHero?: Hero;
 
-	constructor(
-		private readonly heroesService: HeroesService,
-		private readonly messagesService: MessagesService,
-	) {}
+	private readonly heroesService = inject(HeroesService);
+	private readonly messagesService = inject(MessagesService);
 
 	public ngOnInit(): void {
-		this.initHeroes();
+		this.#initHeroes();
 	}
 
 	public onSelect(hero: Hero): void {
@@ -28,7 +26,7 @@ export class HeroesComponent {
 		);
 	}
 
-	private initHeroes(): void {
+	#initHeroes(): void {
 		this.heroesService.getHeroes$()
 			.subscribe(heroes => this.heroes = signal(heroes));
 	}

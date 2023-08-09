@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MessagesService } from 'src/app/messages/messages.service';
 
 @Component({
@@ -7,7 +7,5 @@ import { MessagesService } from 'src/app/messages/messages.service';
   styleUrls: ['./messages.component.scss'],
 })
 export class MessagesComponent {
-	constructor(
-		public readonly messagesService: MessagesService,
-	) {}
+	public readonly messagesService = inject(MessagesService);
 }

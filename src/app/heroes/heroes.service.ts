@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import { Hero } from "./heroes.model";
 import { Observable, of } from "rxjs";
 import { MessagesService } from "src/app/messages/messages.service";
@@ -7,9 +7,7 @@ import { MessagesService } from "src/app/messages/messages.service";
 	providedIn: 'root',
 })
 export class HeroesService {
-	constructor(
-		private readonly messagesService: MessagesService,
-	) {}
+	private readonly messagesService = inject(MessagesService);
 
 	public getHeroes$(): Observable<Hero[]> {
 		this.messagesService.add(`${HeroesService.name}: fetched heroes`);
