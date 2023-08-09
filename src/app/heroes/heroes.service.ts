@@ -8,20 +8,27 @@ import { MessagesService } from "src/app/messages/messages.service";
 })
 export class HeroesService {
 	private readonly messagesService = inject(MessagesService);
+	readonly #HEROES = [
+		{ id: 12, name: 'Dr. Nice' },
+		{ id: 13, name: 'Bombasto' },
+		{ id: 14, name: 'Celeritas' },
+		{ id: 15, name: 'Magneta' },
+		{ id: 16, name: 'RubberMan' },
+		{ id: 17, name: 'Dynama' },
+		{ id: 18, name: 'Dr. IQ' },
+		{ id: 19, name: 'Magma' },
+		{ id: 20, name: 'Tornado' },
+	];
 
 	public getHeroes$(): Observable<Hero[]> {
 		this.messagesService.add(`${HeroesService.name}: fetched heroes`);
-		return of([
-			{ id: 12, name: 'Dr. Nice' },
-			{ id: 13, name: 'Bombasto' },
-			{ id: 14, name: 'Celeritas' },
-			{ id: 15, name: 'Magneta' },
-			{ id: 16, name: 'RubberMan' },
-			{ id: 17, name: 'Dynama' },
-			{ id: 18, name: 'Dr. IQ' },
-			{ id: 19, name: 'Magma' },
-			{ id: 20, name: 'Tornado' },
-		]);
+		return of(this.#HEROES);
+	}
+
+	public getHero$(id: number): Observable<Hero> {
+		const hero = this.#HEROES.find(h => h.id === id)!;
+		this.messagesService.add(`HeroService: fetched hero id=${id}`);
+		return of(hero);
 	}
 }
 
