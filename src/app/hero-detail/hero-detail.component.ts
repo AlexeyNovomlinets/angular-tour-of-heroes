@@ -24,9 +24,16 @@ export class HeroDetailComponent {
 		this.location.back();
 	}
 
+	public save(): void {
+		if (this.hero) {
+			this.heroesService.updateHero$(this.hero).subscribe(() =>
+				this.goBack(),
+			);
+		}
+	}
+
 	#getHero(): void {
-	const id = Number(this.route.snapshot.paramMap.get('id'));
-	this.heroesService.getHero$(id)
-		.subscribe(hero => this.hero = hero);
+		const id = Number(this.route.snapshot.paramMap.get('id'));
+		this.heroesService.getHero$(id).subscribe(hero => this.hero = hero);
 	}
 }

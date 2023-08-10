@@ -18,6 +18,21 @@ export class HeroesComponent {
 		this.#initHeroes();
 	}
 
+	public add(name: string): void {
+		name = name.trim();
+		if (!name) {
+			return;
+		}
+		this.heroesService.addHero$({ name } as Hero).subscribe(hero => {
+			this.heroes.set([...this.heroes(), hero]);
+		});
+	}
+
+	public delete(hero: Hero): void {
+		this.heroes.set(this.heroes().filter(h => h !== hero));
+		this.heroesService.deleteHero(hero.id).subscribe();
+	}
+
 	#initHeroes(): void {
 		this.heroesService.getHeroes$()
 			.subscribe(heroes => this.heroes = signal(heroes));

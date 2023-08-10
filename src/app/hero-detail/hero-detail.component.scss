@@ -1,0 +1,28 @@
+label {
+	color: #435960;
+	font-weight: bold;
+}
+
+input {
+	font-size: 14px;
+	padding: 5px;
+}
+
+button {
+	margin-top: 20px;
+	margin-right: 5px;
+	background-color: #eee;
+	padding: 4px;
+	border-radius: 4px;
+	font-size: 14px;
+
+	&:hover {
+		background-color: #cfd8dc;
+	}
+
+	&:disabled {
+		background-color: #eee;
+		color: #ccc;
+		cursor: auto;
+	}
+}
